@@ -7,7 +7,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
+#include <iostream>
+using namespace std;
 /*
  * error - wrapper for perror
  */
@@ -26,9 +27,7 @@ private:
 public:
     
     void receive(char *buf, size_t bufsize){
-        printf("WAITING\n");
         n = recvfrom(sockfd, buf, bufsize, 0, (struct sockaddr *) &clientaddr, &clientlen);
-        printf("RECEIVED\n");
         if (n < 0) perror("ERROR in recvfrom");
 
         hostp = gethostbyaddr((const char *)&clientaddr.sin_addr.s_addr, sizeof(clientaddr.sin_addr.s_addr), AF_INET);

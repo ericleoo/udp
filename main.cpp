@@ -2,25 +2,19 @@
 #include <iostream>
 using namespace std;
 using namespace udp_client_server;
-#define HEADER_SIZE 4
+#define HEADER_SIZE 1
 
 int portno;
 char header[1];
 char *buffer;
 int message_length;
 
-/*
-void send(udp_server &server){
-    server.send(header,HEADER_SIZE);
-    server.send(buffer,message_length);
-}
-*/
-
 void receive(udp_server &server){
     cout << "WAITING\n";
     server.recv(header,HEADER_SIZE);
     char received = *header;
     cout << "Received: " << (int)received << '\n';
+    server.send(header,HEADER_SIZE);
 }
 
 int main(int argc, char **argv){
