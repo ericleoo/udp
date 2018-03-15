@@ -21,6 +21,13 @@ class UDPClient
         this.clientSocket.send(headerPacket);
     }
 
+    public int receive() throws IOException{
+        byte[] header = new byte[1];
+        DatagramPacket packet = new DatagramPacket(header,header.length);
+        this.clientSocket.receive(packet);
+        return (int)((char)header[0]);
+    }
+
     public static void main(String args[]){
         if(args.length < 2){
             System.out.println("Usage: UDPClient <IP ADDRESS> <PORT>");
@@ -30,6 +37,7 @@ class UDPClient
             UDPClient udpClient = new UDPClient(args[0],Integer.parseInt(args[1]));
             for(char i=0;i<20;i++){
                 udpClient.send(i);
+                System.out.printf("ACK: %d\n",udpClient.receive());
             }
         }
         catch(IOException e){}
