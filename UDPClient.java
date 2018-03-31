@@ -35,9 +35,12 @@ class UDPClient
         }
         try{
             UDPClient udpClient = new UDPClient(args[0],Integer.parseInt(args[1]));
+            int j = 0;
             for(char i=0;i<20;i++){
                 udpClient.send(i);
-                System.out.printf("ACK: %d\n",udpClient.receive());
+                System.out.printf("%d\n",j);
+                //Thread.sleep(10);
+                j++;
             }
         }
         catch(IOException e){}
